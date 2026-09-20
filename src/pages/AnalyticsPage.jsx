@@ -2,9 +2,11 @@ import { useMemo } from 'react'
 import { DonutChart } from '../components/analytics/DonutChart.jsx'
 import { FunnelChart } from '../components/analytics/FunnelChart.jsx'
 import { InsightsList } from '../components/analytics/InsightsList.jsx'
+import { OfferComparison } from '../components/analytics/OfferComparison.jsx'
 import { SourceTable } from '../components/analytics/SourceTable.jsx'
 import { WeeklyBarChart } from '../components/analytics/WeeklyBarChart.jsx'
 import { EmptyState } from '../components/ui/EmptyState.jsx'
+import { STATUS } from '../constants/statuses.js'
 import { useApplicationForm } from '../hooks/useApplicationForm.js'
 import { useApplications } from '../hooks/useApplications.js'
 import { useSampleData } from '../hooks/useSampleData.js'
@@ -34,6 +36,7 @@ export function AnalyticsPage() {
       distribution: getStatusDistribution(applications),
       sources: getSourceStats(applications),
       insights: getInsights(applications, settings.followUpDays, today),
+      offers: applications.filter((application) => application.status === STATUS.OFFER),
     }
   }, [applications, settings.followUpDays])
 
@@ -68,6 +71,7 @@ export function AnalyticsPage() {
 
       <WeeklyBarChart weeks={analytics.weeks} />
       <SourceTable rows={analytics.sources} />
+      <OfferComparison offers={analytics.offers} />
     </div>
   )
 }

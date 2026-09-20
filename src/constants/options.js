@@ -67,6 +67,7 @@ export const DEFAULT_FILTERS = Object.freeze({
   jobType: ALL_FILTER,
   workMode: ALL_FILTER,
   source: ALL_FILTER,
+  tag: ALL_FILTER,
   sortBy: SORT_BY.DEADLINE,
 })
 

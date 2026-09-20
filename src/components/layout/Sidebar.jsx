@@ -29,7 +29,7 @@ export function Sidebar({ currentPage, onNavigate }) {
           })}
         </ul>
       </nav>
-      <p className="sidebar__footer">Your data stays in this browser. No account needed.</p>
+      <p className="sidebar__footer">Your data stays in this browser. Press ? for shortcuts.</p>
     </aside>
   )
 }

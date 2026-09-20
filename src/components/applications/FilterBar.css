@@ -134,3 +134,36 @@
   gap: var(--space-3);
   animation: at-slide-up var(--duration-base) var(--ease-out) both;
 }
+
+.filter-bar__tags {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filter-bar__tags-label {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.filter-bar__tag {
+  padding: 2px var(--space-3);
+  border: 1px solid var(--color-border-strong);
+  border-radius: var(--radius-full);
+  background: transparent;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.filter-bar__tag:hover {
+  background: var(--color-surface-hover);
+}
+
+/* Selected tag: color + bold, so it is not shown by color alone. */
+.filter-bar__tag[aria-pressed='true'] {
+  border-color: var(--color-primary);
+  background: var(--color-primary-soft);
+  color: var(--color-primary);
+  font-weight: var(--weight-semibold);
+}

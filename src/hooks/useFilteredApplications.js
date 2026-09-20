@@ -15,7 +15,7 @@ import { useDebounce } from './useDebounce.js'
  *   "how many would I get if I picked this tab".
  */
 export function useFilteredApplications(applications, filters) {
-  const { search, status, priority, jobType, workMode, source, sortBy } = filters
+  const { search, status, priority, jobType, workMode, source, tag, sortBy } = filters
   const debouncedSearch = useDebounce(search, SEARCH_DEBOUNCE_MS)
 
   // Kept separate from the status filter so tab counts do not need a second full pass.
@@ -28,8 +28,9 @@ export function useFilteredApplications(applications, filters) {
         jobType,
         workMode,
         source,
+        tag,
       }),
-    [applications, debouncedSearch, priority, jobType, workMode, source],
+    [applications, debouncedSearch, priority, jobType, workMode, source, tag],
   )
 
   const statusCounts = useMemo(() => getStatusCounts(matchingWithoutStatus), [matchingWithoutStatus])

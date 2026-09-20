@@ -33,7 +33,7 @@ const SOURCE_OPTIONS = withAll('All sources', SOURCES)
  *           resultCount: number, totalCount: number,
  *           onChange: (changes: object) => void, onClear: () => void }} props
  */
-export function FilterBar({ filters, statusCounts, matchCount, resultCount, totalCount, onChange, onClear }) {
+export function FilterBar({ filters, tags, statusCounts, matchCount, resultCount, totalCount, onChange, onClear }) {
   const moreCount = countMoreFilters(filters)
   const [showMore, setShowMore] = useState(moreCount > 0)
 
@@ -60,7 +60,22 @@ export function FilterBar({ filters, statusCounts, matchCount, resultCount, tota
           </button>
         ))}
       </div>
-
+      {tags.length > 0 && (
+        <div className="filter-bar__tags" role="group" aria-label="Filter by tag">
+          <span className="filter-bar__tags-label">Tags</span>
+          {tags.map((tag) => (
+            <button
+              key={tag}
+              type="button"
+              className="filter-bar__tag"
+              aria-pressed={filters.tag === tag}
+              onClick={() => onChange({ tag: filters.tag === tag ? ALL_FILTER : tag })}
+            >
+              #{tag}
+            </button>
+          ))}
+        </div>
+      )}
       <div className="filter-bar__controls">
         <Select
           label="Sort by"

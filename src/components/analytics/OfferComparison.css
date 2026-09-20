@@ -1,0 +1,60 @@
+.offer-compare__picker {
+  display: grid;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.offer-compare__picker legend {
+  margin-bottom: var(--space-2);
+  padding: 0;
+  font-weight: var(--weight-semibold);
+}
+
+.offer-compare__option {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  cursor: pointer;
+}
+
+.offer-compare__option input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.offer-compare__wrap {
+  overflow-x: auto;
+}
+
+.offer-compare__table {
+  width: 100%;
+  min-width: 480px;
+}
+
+.offer-compare__table th,
+.offer-compare__table td {
+  min-width: 140px;
+  padding: var(--space-2) var(--space-3);
+  border-top: 1px solid var(--color-border);
+  font-size: var(--text-sm);
+  text-align: left;
+  vertical-align: top;
+  overflow-wrap: anywhere;
+}
+
+.offer-compare__table thead th {
+  border-top: 0;
+  font-family: var(--font-heading);
+  font-size: var(--text-base);
+}
+
+.offer-compare__table tbody th {
+  min-width: 100px;
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}

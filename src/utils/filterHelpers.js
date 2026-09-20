@@ -36,7 +36,8 @@ export function filterApplications(applications, filters) {
       matchesSearch(application, words) &&
       FILTER_FIELDS.every(
         (field) => filters[field] === ALL_FILTER || application[field] === filters[field],
-      ),
+      ) &&
+      (filters.tag === ALL_FILTER || application.tags.includes(filters.tag)),
   )
 }
 
@@ -82,7 +83,11 @@ export function sortApplications(applications, sortBy, today = new Date()) {
 
 /** @returns {boolean} true if the search box or any filter (including status) is set */
 export function hasActiveFilters(filters) {
-  return filters.search.trim() !== '' || FILTER_FIELDS.some((field) => filters[field] !== ALL_FILTER)
+  return (
+    filters.search.trim() !== '' ||
+    filters.tag !== ALL_FILTER ||
+    FILTER_FIELDS.some((field) => filters[field] !== ALL_FILTER)
+  )
 }
 
 /** @returns {number} how many of the "More filters" dropdowns are set */

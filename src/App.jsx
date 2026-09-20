@@ -1,15 +1,17 @@
 import { useCallback, useEffect, useState } from 'react'
 import { AppShell } from './components/layout/AppShell.jsx'
 import { NAV_ITEMS } from './components/layout/navItems.js'
+import { ShortcutsModal } from './components/ui/ShortcutsModal.jsx'
 import { ToastViewport } from './components/ui/ToastViewport.jsx'
 import { DEFAULT_FILTERS, PAGE } from './constants/options.js'
 import { useApplicationForm } from './hooks/useApplicationForm.js'
+import { useKeyboardShortcut } from './hooks/useKeyboardShortcut.js'
 import { useSettings } from './hooks/useSettings.js'
+import { AnalyticsPage } from './pages/AnalyticsPage.jsx'
 import { ApplicationsPage } from './pages/ApplicationsPage.jsx'
 import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
-import { PlaceholderPage } from './pages/PlaceholderPage.jsx'
-import { AnalyticsPage } from './pages/AnalyticsPage.jsx'
+import { SettingsPage } from './pages/SettingsPage.jsx'
 
 export function App() {
   const { settings } = useSettings()
@@ -20,6 +22,7 @@ export function App() {
   // Search text and filters are shared by the top bar, the list and the board,
   // so the state lives here (lifted up to the nearest common parent).
   const [filters, setFilters] = useState(DEFAULT_FILTERS)
+  const [isShortcutsOpen, setIsShortcutsOpen] = useState(false)
 
   const pageLabel = NAV_ITEMS.find((item) => item.page === currentPage)?.label ?? 'Page'
 
@@ -27,6 +30,11 @@ export function App() {
   useEffect(() => {
     document.title = `${pageLabel} | ApplyTrack`
   }, [pageLabel])
+
+  // Keyboard shortcuts: N = new application, / = search, ? = help. Esc is handled by dialogs themselves.
+  useKeyboardShortcut('n', openNewApplication)
+  useKeyboardShortcut('/', () => document.getElementById('global-search')?.focus()) // id is set in Topbar
+  useKeyboardShortcut('?', () => setIsShortcutsOpen(true))
 
   const updateFilters = useCallback(
     (changes) => setFilters((previous) => ({ ...previous, ...changes })),
@@ -56,10 +64,6 @@ export function App() {
 
   function renderPage() {
     switch (currentPage) {
-      case PAGE.ANALYTICS:
-        return <AnalyticsPage />
-      case PAGE.DASHBOARD:
-        return <DashboardPage />
       case PAGE.APPLICATIONS:
         return (
           <ApplicationsPage
@@ -70,8 +74,12 @@ export function App() {
         )
       case PAGE.BOARD:
         return <BoardPage filters={filters} onClearFilters={clearFilters} />
+      case PAGE.ANALYTICS:
+        return <AnalyticsPage />
+      case PAGE.SETTINGS:
+        return <SettingsPage onShowShortcuts={() => setIsShortcutsOpen(true)} />
       default:
-        return <PlaceholderPage title={pageLabel} />
+        return <DashboardPage />
     }
   }
 
@@ -89,6 +97,7 @@ export function App() {
           {renderPage()}
         </div>
       </AppShell>
+      <ShortcutsModal isOpen={isShortcutsOpen} onClose={() => setIsShortcutsOpen(false)} />
       <ToastViewport />
     </>
   )

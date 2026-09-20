@@ -1,6 +1,8 @@
+import { useMemo } from 'react'
 import { ApplicationCard } from '../components/applications/ApplicationCard.jsx'
 import { ApplicationTable } from '../components/applications/ApplicationTable.jsx'
 import { FilterBar } from '../components/applications/FilterBar.jsx'
+import { Button } from '../components/ui/Button.jsx'
 import { EmptyState } from '../components/ui/EmptyState.jsx'
 import { useApplicationForm } from '../hooks/useApplicationForm.js'
 import { useApplications } from '../hooks/useApplications.js'
@@ -9,6 +11,9 @@ import { useFilteredApplications } from '../hooks/useFilteredApplications.js'
 import { useMediaQuery } from '../hooks/useMediaQuery.js'
 import { useSampleData } from '../hooks/useSampleData.js'
 import { useSettings } from '../hooks/useSettings.js'
+import { useToast } from '../hooks/useToast.js'
+import { exportApplicationsCsv } from '../services/exportService.js'
+import { getAllTags } from '../utils/tagHelpers.js'
 import './ApplicationsPage.css'
 
 /**
@@ -21,8 +26,15 @@ export function ApplicationsPage({ filters, onFiltersChange, onClearFilters }) {
   const { openNewApplication, openEditApplication } = useApplicationForm()
   const deleteWithUndo = useDeleteApplication()
   const { loadSampleData } = useSampleData()
+  const toast = useToast()
   const isWide = useMediaQuery('(min-width: 768px)')
   const { results, statusCounts, matchCount } = useFilteredApplications(applications, filters)
+  const tags = useMemo(() => getAllTags(applications), [applications])
+
+  function handleExportCsv() {
+    exportApplicationsCsv(results)
+    toast.success(`Exported ${results.length} applications`)
+  }
 
   if (applications.length === 0) {
     return (
@@ -48,13 +60,20 @@ export function ApplicationsPage({ filters, onFiltersChange, onClearFilters }) {
 
   return (
     <div className="applications-page">
-      <header>
-        <h1 className="applications-page__title">Applications</h1>
-        <p className="text-muted">Change a status right from the list. Click a company to edit it.</p>
+      <header className="applications-page__header">
+        <div>
+          <h1 className="applications-page__title">Applications</h1>
+          <p className="text-muted">Change a status right from the list. Click a company to see its details.</p>
+        </div>
+        {/* Exports exactly what is on screen: the filtered and sorted list. */}
+        <Button variant="secondary" disabled={results.length === 0} onClick={handleExportCsv}>
+          Export CSV
+        </Button>
       </header>
 
       <FilterBar
         filters={filters}
+        tags={tags}
         statusCounts={statusCounts}
         matchCount={matchCount}
         resultCount={results.length}

@@ -19,6 +19,7 @@ import {
 } from '../utils/statsHelpers.js'
 import './DashboardPage.css'
 import { useApplicationDrawer } from '../hooks/useApplicationDrawer.js'
+import { WeeklyGoal } from '../components/dashboard/WeeklyGoal.jsx'
 
 function formatDaysAway(days) {
   if (days === 0) return 'Today'
@@ -144,7 +145,7 @@ export function DashboardPage() {
           tone="neutral"
         />
       </dl>
-
+      <WeeklyGoal applications={applications} />
       <UpcomingList
         title="Reminders"
         icon={<IconAlertCircle size={20} />}

@@ -19,7 +19,7 @@ import {
   WORK_MODES,
 } from '../constants/options.js'
 import { daysBetween, parseDateOnly, startOfDay, toDate, toDateInputValue } from './dateHelpers.js'
-import { isPlainObject } from './validators.js'
+import { isPlainObject, isValidEmail, isValidUrl } from './validators.js'
 
 /* ==========================================================================
    Small internal helpers
@@ -272,9 +272,9 @@ export function normalizeApplication(raw) {
     appliedDate: cleanDate(raw.appliedDate),
     deadline: cleanDate(raw.deadline),
     ctcLpa: toNumberOrNull(raw.ctcLpa),
-    jobLink: cleanText(raw.jobLink),
+    jobLink: isValidUrl(cleanText(raw.jobLink)) ? cleanText(raw.jobLink) : '',
     contactName: cleanText(raw.contactName),
-    contactEmail: cleanText(raw.contactEmail),
+    contactEmail: isValidEmail(cleanText(raw.contactEmail)) ? cleanText(raw.contactEmail) : '',
     resumeVersion: cleanText(raw.resumeVersion),
     notes: cleanText(raw.notes),
     tags: parseTags(raw.tags),

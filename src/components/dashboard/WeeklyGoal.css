@@ -1,0 +1,39 @@
+.weekly-goal {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-6);
+  padding: var(--space-5);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-sm);
+}
+
+.weekly-goal__text {
+  display: grid;
+  flex: 1;
+  gap: var(--space-2);
+  min-width: 200px;
+}
+
+.weekly-goal__title {
+  font-size: var(--text-lg);
+}
+
+.weekly-goal__count {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-extrabold);
+  line-height: 1;
+}
+
+.weekly-goal__goal {
+  color: var(--color-text-muted);
+  font-size: var(--text-base);
+  font-weight: var(--weight-medium);
+}
+
+.weekly-goal__caption {
+  color: var(--color-text-muted);
+  font-size: var(--text-xs);
+}

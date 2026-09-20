@@ -80,3 +80,27 @@
     transition-duration: 0.01ms !important;
   }
 }
+
+/* Card hover lift. Only transform and box-shadow change, which is cheap for the browser.
+   The media query keeps touch screens from getting a "stuck" hover state.
+   The global reduced-motion rule above already switches transitions off for users who ask. */
+.stat-card,
+.application-card,
+.analytics-card,
+.upcoming-list,
+.weekly-goal {
+  transition:
+    transform var(--duration-base) var(--ease-out),
+    box-shadow var(--duration-base) var(--ease-out);
+}
+
+@media (hover: hover) {
+  .stat-card:hover,
+  .application-card:hover,
+  .analytics-card:hover,
+  .upcoming-list:hover,
+  .weekly-goal:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+  }
+}
