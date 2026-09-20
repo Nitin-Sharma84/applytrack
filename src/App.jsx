@@ -1,35 +1,43 @@
 import { useState } from 'react'
 import './styles/preview.css'
-import { DEFAULT_SETTINGS, SEARCH_DEBOUNCE_MS } from './constants/options.js'
-import { STORAGE_KEYS } from './constants/storageKeys.js'
+import { THEMES, UNDO_TIMEOUT_MS } from './constants/options.js'
 import { STATUSES, getStatusSlug } from './constants/statuses.js'
-import { useDebounce } from './hooks/useDebounce.js'
-import { useLocalStorage } from './hooks/useLocalStorage.js'
-import { sanitizeSettings } from './services/storage.js'
+import { useApplications } from './hooks/useApplications.js'
+import { useSettings } from './hooks/useSettings.js'
+import { useToast, useToastList } from './hooks/useToast.js'
+import { createEmptyFormValues } from './utils/applicationHelpers.js'
 
 export function App() {
-  const [search, setSearch] = useState('')
-  const debouncedSearch = useDebounce(search, SEARCH_DEBOUNCE_MS)
+  const { applications, addApplication, changeStatus, deleteApplication, restoreApplication } =
+    useApplications()
+  const { settings, updateSettings } = useSettings()
+  const toast = useToast()
+  const toasts = useToastList()
+  const [shouldCrash, setShouldCrash] = useState(false)
 
-  const [settings, setSettings] = useLocalStorage(STORAGE_KEYS.SETTINGS, DEFAULT_SETTINGS, {
-    sanitize: sanitizeSettings,
-  })
+  // TEMPORARY: proves the ErrorBoundary catches render errors.
+  if (shouldCrash) throw new Error('Test crash from the Phase 2 demo')
 
-  // TEMPORARY: touches the DOM directly just to test dark mode.
-  // Phase 3 replaces this with SettingsContext state.
-  function handleToggleTheme() {
-    const root = document.documentElement
-    const systemPrefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches
-    const current = root.dataset.theme ?? (systemPrefersDark ? 'dark' : 'light')
-    root.dataset.theme = current === 'dark' ? 'light' : 'dark'
+  function handleAdd() {
+    addApplication({
+      ...createEmptyFormValues(),
+      company: `Company ${applications.length + 1}`,
+      role: 'Frontend Intern',
+    })
+    toast.success('Application added')
   }
 
-  function handleIncreaseGoal() {
-    setSettings((previous) => ({ ...previous, weeklyGoal: previous.weeklyGoal + 1 }))
+  function handleDelete(application) {
+    deleteApplication(application.id)
+    toast.info(`${application.company} deleted`, {
+      duration: UNDO_TIMEOUT_MS,
+      action: { label: 'Undo', onClick: () => restoreApplication(application) },
+    })
   }
 
-  function handleResetSettings() {
-    setSettings(DEFAULT_SETTINGS)
+  function handleToastAction(item) {
+    item.action.onClick()
+    toast.dismissToast(item.id)
   }
 
   return (
@@ -37,61 +45,80 @@ export function App() {
       <header className="preview__header">
         <div>
           <h1 className="preview__title">ApplyTrack</h1>
-          <p className="preview__subtitle">Phase 1 check: constants, debounce and localStorage hook.</p>
+          <p className="preview__subtitle">Phase 2 check: reducer, contexts and error boundary.</p>
         </div>
-        <button type="button" className="preview__btn" onClick={handleToggleTheme}>
-          Toggle theme
-        </button>
+        <div>
+          <label className="preview__text" htmlFor="phase2-theme">
+            Theme:{' '}
+          </label>
+          <select
+            id="phase2-theme"
+            value={settings.theme}
+            onChange={(event) => updateSettings({ theme: event.target.value })}
+          >
+            {THEMES.map((theme) => (
+              <option key={theme} value={theme}>
+                {theme}
+              </option>
+            ))}
+          </select>
+        </div>
       </header>
 
-      <section className="preview__card glass" aria-labelledby="preview-status-title">
-        <h2 id="preview-status-title" className="preview__card-title">
-          Statuses (from constants)
+      <section className="preview__card glass" aria-labelledby="phase2-apps-title">
+        <h2 id="phase2-apps-title" className="preview__card-title">
+          Applications ({applications.length})
         </h2>
+        <div className="preview__chips">
+          <button type="button" className="preview__btn" onClick={handleAdd}>
+            Add test application
+          </button>
+          <button type="button" className="preview__btn" onClick={() => setShouldCrash(true)}>
+            Crash test
+          </button>
+        </div>
         <ul className="preview__chips">
-          {STATUSES.map((status) => (
-            <li key={status} className={`preview__chip preview__chip--${getStatusSlug(status)}`}>
-              {status}
+          {applications.map((application) => (
+            <li
+              key={application.id}
+              className={`preview__chip preview__chip--${getStatusSlug(application.status)}`}
+            >
+              {application.company}
+              <select
+                aria-label={`Status of ${application.company}`}
+                value={application.status}
+                onChange={(event) => changeStatus(application.id, event.target.value)}
+              >
+                {STATUSES.map((status) => (
+                  <option key={status} value={status}>
+                    {status}
+                  </option>
+                ))}
+              </select>
+              <button type="button" onClick={() => handleDelete(application)}>
+                Delete
+              </button>
             </li>
           ))}
         </ul>
       </section>
 
-      <section className="preview__card glass" aria-labelledby="preview-debounce-title">
-        <h2 id="preview-debounce-title" className="preview__card-title">
-          useDebounce
+      <section className="preview__card glass" aria-labelledby="phase2-toast-title">
+        <h2 id="phase2-toast-title" className="preview__card-title">
+          Toasts (temporary list, real UI in Phase 3)
         </h2>
-        <label className="preview__text" htmlFor="phase1-search">
-          Type quickly in this box:
-        </label>
-        <input
-          id="phase1-search"
-          type="text"
-          value={search}
-          onChange={(event) => setSearch(event.target.value)}
-        />
-        <p className="preview__text">Live value: {search}</p>
-        <p className="preview__text">
-          Debounced value ({SEARCH_DEBOUNCE_MS} ms): {debouncedSearch}
-        </p>
-      </section>
-
-      <section className="preview__card glass" aria-labelledby="preview-storage-title">
-        <h2 id="preview-storage-title" className="preview__card-title">
-          useLocalStorage
-        </h2>
-        <p className="preview__stat">Weekly goal: {settings.weeklyGoal}</p>
-        <div className="preview__chips">
-          <button type="button" className="preview__btn" onClick={handleIncreaseGoal}>
-            Increase goal
-          </button>
-          <button type="button" className="preview__btn" onClick={handleResetSettings}>
-            Reset settings
-          </button>
-        </div>
-        <p className="preview__text">
-          Increase the goal, then refresh the page. The number must stay.
-        </p>
+        <ul className="preview__chips">
+          {toasts.map((item) => (
+            <li key={item.id} className="preview__chip preview__chip--applied">
+              {item.type}: {item.message}
+              {item.action && (
+                <button type="button" onClick={() => handleToastAction(item)}>
+                  {item.action.label}
+                </button>
+              )}
+            </li>
+          ))}
+        </ul>
       </section>
     </main>
   )
