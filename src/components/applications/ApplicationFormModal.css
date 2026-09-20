@@ -1,0 +1,10 @@
+/* Pushes Delete to the far left of the footer, away from Cancel and Save. */
+.application-form-modal__delete {
+  margin-right: auto;
+  color: var(--color-danger-text);
+}
+
+.application-form-modal__delete:hover:not(:disabled) {
+  background: var(--color-danger-soft);
+  color: var(--color-danger-text);
+}

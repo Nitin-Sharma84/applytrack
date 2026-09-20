@@ -3,13 +3,13 @@ import { AppShell } from './components/layout/AppShell.jsx'
 import { NAV_ITEMS } from './components/layout/navItems.js'
 import { ToastViewport } from './components/ui/ToastViewport.jsx'
 import { PAGE } from './constants/options.js'
+import { useApplicationForm } from './hooks/useApplicationForm.js'
 import { useSettings } from './hooks/useSettings.js'
-import { useToast } from './hooks/useToast.js'
 import { PreviewPage } from './pages/PreviewPage.jsx'
 
 export function App() {
   const { settings } = useSettings()
-  const toast = useToast()
+  const { openNewApplication } = useApplicationForm()
 
   // Simple state-based navigation (no router). The saved default view picks the first page.
   const [currentPage, setCurrentPage] = useState(settings.defaultView)
@@ -21,11 +21,6 @@ export function App() {
     if (value && currentPage !== PAGE.APPLICATIONS) setCurrentPage(PAGE.APPLICATIONS)
   }
 
-  function handleNewApplication() {
-    // TEMPORARY: opens the real form in Phase 4.
-    toast.info('The application form arrives in Phase 4.')
-  }
-
   const pageLabel = NAV_ITEMS.find((item) => item.page === currentPage)?.label ?? 'Page'
 
   return (
@@ -35,9 +30,12 @@ export function App() {
         onNavigate={setCurrentPage}
         search={search}
         onSearchChange={handleSearchChange}
-        onNewApplication={handleNewApplication}
+        onNewApplication={openNewApplication}
       >
-        <PreviewPage pageLabel={pageLabel} />
+        {/* key={currentPage} remounts this wrapper on every page change, which replays the fade-in. */}
+        <div key={currentPage} className="anim-slide-up">
+          <PreviewPage pageLabel={pageLabel} />
+        </div>
       </AppShell>
       <ToastViewport />
     </>

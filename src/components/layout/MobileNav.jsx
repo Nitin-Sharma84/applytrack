@@ -4,7 +4,7 @@ import './MobileNav.css'
 /** Bottom tab bar for screens below 1024px. */
 export function MobileNav({ currentPage, onNavigate }) {
   return (
-    <nav className="mobile-nav glass" aria-label="Main">
+    <nav className="mobile-nav glass glass--blur" aria-label="Main">
       <ul className="mobile-nav__list">
         {NAV_ITEMS.map(({ page, label, Icon }) => {
           const isActive = page === currentPage

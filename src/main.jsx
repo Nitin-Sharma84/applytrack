@@ -9,14 +9,15 @@ import './styles/utilities.css'
 
 import { App } from './App.jsx'
 import { ErrorBoundary } from './components/ui/ErrorBoundary.jsx'
+import { ApplicationFormProvider } from './context/ApplicationFormProvider.jsx'
 import { ApplicationsProvider } from './context/ApplicationsContext.jsx'
 import { ConfirmProvider } from './context/ConfirmProvider.jsx'
 import { SettingsProvider } from './context/SettingsContext.jsx'
 import { ToastProvider } from './context/ToastContext.jsx'
 
 // Provider order: ErrorBoundary is outermost so it also catches errors thrown
-// by the providers. ApplicationsProvider sits inside ToastProvider because it
-// shows a toast when saving fails.
+// by the providers. ApplicationFormProvider is innermost because it uses the
+// applications, toast and confirm contexts.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
@@ -24,7 +25,9 @@ createRoot(document.getElementById('root')).render(
         <ToastProvider>
           <ConfirmProvider>
             <ApplicationsProvider>
-              <App />
+              <ApplicationFormProvider>
+                <App />
+              </ApplicationFormProvider>
             </ApplicationsProvider>
           </ConfirmProvider>
         </ToastProvider>

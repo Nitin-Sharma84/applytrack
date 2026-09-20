@@ -17,3 +17,6 @@ export const ConfirmContext = createContext(null)
 // ToastListContext (the array) changes, and only the toast viewport reads it.
 export const ToastContext = createContext(null)
 export const ToastListContext = createContext([])
+
+// Opens the add/edit application modal from anywhere (top bar, list rows, shortcuts).
+export const ApplicationFormContext = createContext(null)

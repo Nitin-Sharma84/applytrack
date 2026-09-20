@@ -57,15 +57,20 @@
   }
 }
 
-/* Glassmorphism for cards and the top bar. */
+/* Glass look: a translucent surface WITHOUT blur, which is cheap to scroll. */
 .glass {
   background: var(--color-surface);
-  -webkit-backdrop-filter: blur(var(--blur-glass)) saturate(140%);
-  backdrop-filter: blur(var(--blur-glass)) saturate(140%);
+}
+
+/* Real blur only on small fixed bars (top bar, mobile nav). Blur on big cards
+   forces the browser to re-blur large areas on every scroll frame (= lag). */
+.glass--blur {
+  -webkit-backdrop-filter: blur(var(--blur-glass));
+  backdrop-filter: blur(var(--blur-glass));
 }
 
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .glass {
+  .glass--blur {
     background: var(--color-surface-solid);
   }
 }

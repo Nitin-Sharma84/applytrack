@@ -28,7 +28,6 @@ body {
   color: var(--color-text);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  text-rendering: optimizeLegibility;
 }
 
 /* Fixed background: two soft color blobs (violet, teal), a faint dot pattern
@@ -40,6 +39,7 @@ body::before {
   inset: 0;
   z-index: -1;
   pointer-events: none;
+  will-change: transform;
   background:
     radial-gradient(circle at 1px 1px, var(--bg-dot) 1px, transparent 0) 0 0 / 24px 24px,
     radial-gradient(60vmax 60vmax at 88% -10%, var(--bg-blob-violet), transparent 70%),

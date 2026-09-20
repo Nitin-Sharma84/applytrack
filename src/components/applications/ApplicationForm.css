@@ -1,0 +1,44 @@
+.application-form {
+  display: grid;
+  gap: var(--space-4);
+}
+
+/* Auto columns: 2 on the modal at desktop width, 1 on phones. No media query needed. */
+.application-form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: var(--space-4);
+}
+
+.application-form__toggle {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  justify-self: start;
+  padding: var(--space-2) var(--space-3);
+  border: 0;
+  border-radius: var(--radius-md);
+  background: transparent;
+  color: var(--color-primary);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-semibold);
+  transition: background var(--duration-fast) var(--ease-out);
+}
+
+.application-form__toggle:hover {
+  background: var(--color-primary-soft);
+}
+
+.application-form__toggle-icon {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.application-form__toggle-icon--open {
+  transform: rotate(180deg);
+}
+
+.application-form__details {
+  display: grid;
+  gap: var(--space-4);
+  animation: at-slide-up var(--duration-base) var(--ease-out) both;
+}
