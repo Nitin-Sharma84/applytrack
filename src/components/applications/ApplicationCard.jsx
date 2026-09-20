@@ -8,6 +8,7 @@ import { ApplicationActions } from './ApplicationActions.jsx'
 import { DeadlineBadge } from './DeadlineBadge.jsx'
 import { StatusSelect } from './StatusSelect.jsx'
 import './ApplicationList.css'
+import { useApplicationDrawer } from '../../hooks/useApplicationDrawer.js'
 
 // memo for the same reason as ApplicationRow: unchanged applications skip re-rendering.
 export const ApplicationCard = memo(function ApplicationCard({
@@ -17,6 +18,8 @@ export const ApplicationCard = memo(function ApplicationCard({
   onDelete,
   onChangeStatus,
 }) {
+  const { openApplicationDetails } = useApplicationDrawer()
+
   const derived = useMemo(
     () => getDerivedFields(application, followUpDays),
     [application, followUpDays],
@@ -30,7 +33,7 @@ export const ApplicationCard = memo(function ApplicationCard({
     <article className="application-card">
       <header className="application-card__header">
         <div className="application-card__title">
-          <button type="button" className="application-row__name" onClick={() => onEdit(application)}>
+          <button type="button" className="application-row__name" onClick={() => openApplicationDetails(application)}>
             {application.company}
           </button>
           <p className="application-card__role">{application.role}</p>

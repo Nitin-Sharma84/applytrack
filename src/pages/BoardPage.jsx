@@ -10,11 +10,13 @@ import { useSampleData } from '../hooks/useSampleData.js'
 import { useSettings } from '../hooks/useSettings.js'
 import { useToast } from '../hooks/useToast.js'
 import './BoardPage.css'
+import { useApplicationDrawer } from '../hooks/useApplicationDrawer.js'
 
 export function BoardPage({ filters, onClearFilters }) {
   const { applications, changeStatus } = useApplications()
   const { settings } = useSettings()
-  const { openNewApplication, openEditApplication } = useApplicationForm()
+  const { openNewApplication } = useApplicationForm()
+  const { openApplicationDetails } = useApplicationDrawer()
   const { loadSampleData } = useSampleData()
   const toast = useToast()
 
@@ -71,7 +73,7 @@ export function BoardPage({ filters, onClearFilters }) {
       <KanbanBoard
         applications={results}
         followUpDays={settings.followUpDays}
-        onEdit={openEditApplication}
+        onOpen={openApplicationDetails}
         onMove={moveApplication}
       />
     </div>

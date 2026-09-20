@@ -18,6 +18,7 @@ import {
   getUpcomingRounds,
 } from '../utils/statsHelpers.js'
 import './DashboardPage.css'
+import { useApplicationDrawer } from '../hooks/useApplicationDrawer.js'
 
 function formatDaysAway(days) {
   if (days === 0) return 'Today'
@@ -28,7 +29,8 @@ function formatDaysAway(days) {
 export function DashboardPage() {
   const { applications } = useApplications()
   const { settings } = useSettings()
-  const { openNewApplication, openEditApplication } = useApplicationForm()
+  const { openNewApplication } = useApplicationForm()
+  const { openApplicationDetails } = useApplicationDrawer()
   const { loadSampleData, clearAllApplications } = useSampleData()
 
   const stats = useMemo(() => getOverviewStats(applications), [applications])
@@ -68,7 +70,7 @@ export function DashboardPage() {
           Urgent · {formatDeadlineCountdown(getDaysToDeadline(application))}
         </Badge>
       ),
-      onSelect: () => openEditApplication(application),
+      onSelect: () => openApplicationDetails(application),
     })),
     ...reminders.followUps.map((application) => {
       const quietDays = getDaysSinceUpdate(application)
@@ -81,7 +83,7 @@ export function DashboardPage() {
             Follow-up due
           </Badge>
         ),
-        onSelect: () => openEditApplication(application),
+        onSelect: () => openApplicationDetails(application),
       }
     }),
   ]
@@ -97,7 +99,7 @@ export function DashboardPage() {
           {formatDeadlineCountdown(days)}
         </Badge>
       ),
-      onSelect: () => openEditApplication(application),
+      onSelect: () => openApplicationDetails(application),
     }
   })
 
@@ -110,7 +112,7 @@ export function DashboardPage() {
         {formatDaysAway(daysAway)}
       </Badge>
     ),
-    onSelect: () => openEditApplication(application),
+    onSelect: () => openApplicationDetails(application),
   }))
 
   return (

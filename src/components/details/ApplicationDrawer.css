@@ -1,0 +1,256 @@
+.details {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.details__toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.details__toolbar-actions {
+  display: flex;
+  gap: var(--space-2);
+  margin-left: auto;
+}
+
+.details__toolbar-actions .details__delete {
+  color: var(--color-danger-text);
+}
+
+.details__toolbar-actions .details__delete:hover:not(:disabled) {
+  background: var(--color-danger-soft);
+  color: var(--color-danger-text);
+}
+
+.details__facts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: var(--space-4);
+  margin: 0;
+}
+
+.details__fact {
+  display: grid;
+  gap: var(--space-1);
+  min-width: 0;
+}
+
+.details__fact dt {
+  color: var(--color-text-subtle);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.details__fact dd {
+  margin: 0;
+  overflow-wrap: anywhere;
+}
+
+.details__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.details__section {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.details__heading {
+  font-size: var(--text-lg);
+}
+
+.details__empty {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+/* ---------- Status timeline ---------- */
+.timeline {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+  padding: 0 0 0 var(--space-4);
+  border-left: 2px solid var(--color-border);
+  list-style: none;
+}
+
+.timeline__item {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2) var(--space-3);
+}
+
+/* The dot sits exactly on the vertical line. */
+.timeline__item::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: calc(-1 * var(--space-4) - 6px);
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+  background: var(--color-border-strong);
+  transform: translateY(-50%);
+}
+
+.timeline__item:last-child::before {
+  background: var(--color-primary);
+}
+
+.timeline__date {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.timeline__now {
+  color: var(--color-primary);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+}
+
+/* ---------- Rounds ---------- */
+.rounds {
+  display: grid;
+  gap: var(--space-3);
+  justify-items: start;
+}
+
+.rounds__list {
+  display: grid;
+  gap: var(--space-2);
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.rounds__item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface-muted);
+}
+
+.rounds__info {
+  display: grid;
+  flex: 1;
+  min-width: 140px;
+}
+
+.rounds__notes {
+  color: var(--color-text-subtle);
+  font-size: var(--text-sm);
+  overflow-wrap: anywhere;
+}
+
+.rounds__actions {
+  display: flex;
+}
+
+.round-form {
+  display: grid;
+  gap: var(--space-3);
+  width: 100%;
+}
+
+.round-form__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(150px, 100%), 1fr));
+  gap: var(--space-3);
+}
+
+.round-form__actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--space-2);
+}
+
+/* ---------- Checklist ---------- */
+.checklist {
+  display: grid;
+  gap: var(--space-3);
+}
+
+.checklist__summary {
+  margin-top: var(--space-1);
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.checklist__list {
+  display: grid;
+  gap: var(--space-1);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.checklist__item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-2);
+}
+
+.checklist__label {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  gap: var(--space-3);
+  min-width: 0;
+  padding: var(--space-2) 0;
+  cursor: pointer;
+}
+
+.checklist__label input {
+  flex-shrink: 0;
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+}
+
+.checklist__text {
+  overflow-wrap: anywhere;
+}
+
+.checklist__text--done {
+  color: var(--color-text-subtle);
+  text-decoration: line-through;
+}
+
+.checklist__form {
+  display: flex;
+  align-items: flex-end;
+  gap: var(--space-2);
+}
+
+.checklist__form .field {
+  flex: 1;
+}
+
+/* ---------- Notes ---------- */
+.notes-editor {
+  display: grid;
+  gap: var(--space-2);
+  justify-items: start;
+}
+
+.notes-editor .field {
+  width: 100%;
+}

@@ -20,3 +20,6 @@ export const ToastListContext = createContext([])
 
 // Opens the add/edit application modal from anywhere (top bar, list rows, shortcuts).
 export const ApplicationFormContext = createContext(null)
+
+// Opens the details drawer of one application from anywhere (rows, cards, board, dashboard).
+export const ApplicationDrawerContext = createContext(null)

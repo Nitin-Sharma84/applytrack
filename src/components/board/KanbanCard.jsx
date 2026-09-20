@@ -15,7 +15,7 @@ export const KanbanCard = memo(function KanbanCard({
   isDragging,
   onDragStart,
   onDragEnd,
-  onEdit,
+  onOpen,
   onMove,
 }) {
   const derived = useMemo(
@@ -31,7 +31,7 @@ export const KanbanCard = memo(function KanbanCard({
       onDragStart={(event) => onDragStart(event, application.id)}
       onDragEnd={onDragEnd}
     >
-      <button type="button" className="kanban-card__name" onClick={() => onEdit(application)}>
+      <button type="button" className="kanban-card__name" onClick={() => onOpen(application)}>
         {application.company}
       </button>
       <p className="kanban-card__role">{application.role}</p>

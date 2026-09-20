@@ -9,6 +9,7 @@ import './styles/utilities.css'
 
 import { App } from './App.jsx'
 import { ErrorBoundary } from './components/ui/ErrorBoundary.jsx'
+import { ApplicationDrawerProvider } from './context/ApplicationDrawerProvider.jsx'
 import { ApplicationFormProvider } from './context/ApplicationFormProvider.jsx'
 import { ApplicationsProvider } from './context/ApplicationsContext.jsx'
 import { ConfirmProvider } from './context/ConfirmProvider.jsx'
@@ -16,8 +17,8 @@ import { SettingsProvider } from './context/SettingsContext.jsx'
 import { ToastProvider } from './context/ToastContext.jsx'
 
 // Provider order: ErrorBoundary is outermost so it also catches errors thrown
-// by the providers. ApplicationFormProvider is innermost because it uses the
-// applications, toast and confirm contexts.
+// by the providers. The drawer sits inside the form provider, because its
+// "Edit details" button opens the form.
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <ErrorBoundary>
@@ -26,7 +27,9 @@ createRoot(document.getElementById('root')).render(
           <ConfirmProvider>
             <ApplicationsProvider>
               <ApplicationFormProvider>
-                <App />
+                <ApplicationDrawerProvider>
+                  <App />
+                </ApplicationDrawerProvider>
               </ApplicationFormProvider>
             </ApplicationsProvider>
           </ConfirmProvider>

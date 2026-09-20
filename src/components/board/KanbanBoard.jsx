@@ -7,10 +7,10 @@ import './KanbanBoard.css'
 /**
  * Six status columns with native HTML5 drag and drop.
  * @param {{ applications: object[], followUpDays: number,
- *           onEdit: (application: object) => void,
+ *           onOpen: (application: object) => void,
  *           onMove: (application: object, status: string) => void }} props
  */
-export function KanbanBoard({ applications, followUpDays, onEdit, onMove }) {
+export function KanbanBoard({ applications, followUpDays, onOpen, onMove }) {
   const [draggingId, setDraggingId] = useState(null)
   const [overStatus, setOverStatus] = useState(null)
 
@@ -55,7 +55,7 @@ export function KanbanBoard({ applications, followUpDays, onEdit, onMove }) {
           onDrop={handleDrop}
           onCardDragStart={handleCardDragStart}
           onCardDragEnd={clearDragState}
-          onEdit={onEdit}
+          onOpen={onOpen}
           onMove={onMove}
         />
       ))}

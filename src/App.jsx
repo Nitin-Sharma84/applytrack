@@ -9,6 +9,7 @@ import { ApplicationsPage } from './pages/ApplicationsPage.jsx'
 import { BoardPage } from './pages/BoardPage.jsx'
 import { DashboardPage } from './pages/DashboardPage.jsx'
 import { PlaceholderPage } from './pages/PlaceholderPage.jsx'
+import { AnalyticsPage } from './pages/AnalyticsPage.jsx'
 
 export function App() {
   const { settings } = useSettings()
@@ -55,6 +56,8 @@ export function App() {
 
   function renderPage() {
     switch (currentPage) {
+      case PAGE.ANALYTICS:
+        return <AnalyticsPage />
       case PAGE.DASHBOARD:
         return <DashboardPage />
       case PAGE.APPLICATIONS:

@@ -14,7 +14,7 @@ export function KanbanColumn({
   onDrop,
   onCardDragStart,
   onCardDragEnd,
-  onEdit,
+  onOpen,
   onMove,
 }) {
   const titleId = useId()
@@ -57,7 +57,7 @@ export function KanbanColumn({
                 isDragging={draggingId === application.id}
                 onDragStart={onCardDragStart}
                 onDragEnd={onCardDragEnd}
-                onEdit={onEdit}
+                onOpen={onOpen}
                 onMove={onMove}
               />
             </li>

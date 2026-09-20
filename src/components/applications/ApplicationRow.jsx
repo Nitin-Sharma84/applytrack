@@ -9,6 +9,7 @@ import { ApplicationActions } from './ApplicationActions.jsx'
 import { DeadlineBadge } from './DeadlineBadge.jsx'
 import { StatusSelect } from './StatusSelect.jsx'
 import './ApplicationList.css'
+import { useApplicationDrawer } from '../../hooks/useApplicationDrawer.js'
 
 // memo: the reducer keeps the same object for untouched applications, and the
 // callbacks from the page are stable. So changing one status re-renders one row, not all.
@@ -19,6 +20,8 @@ export const ApplicationRow = memo(function ApplicationRow({
   onDelete,
   onChangeStatus,
 }) {
+
+  const { openApplicationDetails } = useApplicationDrawer()
   // Derived values are calculated here and never stored.
   const derived = useMemo(
     () => getDerivedFields(application, followUpDays),
@@ -28,7 +31,7 @@ export const ApplicationRow = memo(function ApplicationRow({
   return (
     <tr className="application-row">
       <td className="application-row__main">
-        <button type="button" className="application-row__name" onClick={() => onEdit(application)}>
+        <button type="button" className="application-row__name" onClick={() => openApplicationDetails(application)}>
           {application.company}
         </button>
         <span className="application-row__role">
