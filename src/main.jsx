@@ -10,6 +10,7 @@ import './styles/utilities.css'
 import { App } from './App.jsx'
 import { ErrorBoundary } from './components/ui/ErrorBoundary.jsx'
 import { ApplicationsProvider } from './context/ApplicationsContext.jsx'
+import { ConfirmProvider } from './context/ConfirmProvider.jsx'
 import { SettingsProvider } from './context/SettingsContext.jsx'
 import { ToastProvider } from './context/ToastContext.jsx'
 
@@ -21,9 +22,11 @@ createRoot(document.getElementById('root')).render(
     <ErrorBoundary>
       <SettingsProvider>
         <ToastProvider>
-          <ApplicationsProvider>
-            <App />
-          </ApplicationsProvider>
+          <ConfirmProvider>
+            <ApplicationsProvider>
+              <App />
+            </ApplicationsProvider>
+          </ConfirmProvider>
         </ToastProvider>
       </SettingsProvider>
     </ErrorBoundary>

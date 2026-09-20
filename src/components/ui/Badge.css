@@ -1,0 +1,91 @@
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-1);
+  padding: 2px var(--space-2);
+  border-radius: var(--radius-full);
+  background: var(--badge-bg);
+  color: var(--badge-fg);
+  font-size: var(--text-xs);
+  font-weight: var(--weight-semibold);
+  line-height: 1.5;
+  white-space: nowrap;
+}
+
+.badge--status {
+  gap: var(--space-2);
+  padding: 3px var(--space-3);
+}
+
+.badge__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: var(--radius-full);
+  background: var(--badge-dot);
+}
+
+.badge--neutral {
+  --badge-bg: var(--color-surface-muted);
+  --badge-fg: var(--color-text-muted);
+}
+
+.badge--primary {
+  --badge-bg: var(--color-primary-soft);
+  --badge-fg: var(--color-primary);
+}
+
+.badge--success {
+  --badge-bg: var(--color-success-soft);
+  --badge-fg: var(--color-success-text);
+}
+
+.badge--warning {
+  --badge-bg: var(--color-warning-soft);
+  --badge-fg: var(--color-warning-text);
+}
+
+.badge--danger {
+  --badge-bg: var(--color-danger-soft);
+  --badge-fg: var(--color-danger-text);
+}
+
+.badge--info {
+  --badge-bg: var(--color-accent-soft);
+  --badge-fg: var(--color-accent);
+}
+
+.badge--status-wishlist {
+  --badge-bg: var(--status-wishlist-bg);
+  --badge-fg: var(--status-wishlist-fg);
+  --badge-dot: var(--status-wishlist-solid);
+}
+
+.badge--status-applied {
+  --badge-bg: var(--status-applied-bg);
+  --badge-fg: var(--status-applied-fg);
+  --badge-dot: var(--status-applied-solid);
+}
+
+.badge--status-online-test {
+  --badge-bg: var(--status-online-test-bg);
+  --badge-fg: var(--status-online-test-fg);
+  --badge-dot: var(--status-online-test-solid);
+}
+
+.badge--status-interview {
+  --badge-bg: var(--status-interview-bg);
+  --badge-fg: var(--status-interview-fg);
+  --badge-dot: var(--status-interview-solid);
+}
+
+.badge--status-offer {
+  --badge-bg: var(--status-offer-bg);
+  --badge-fg: var(--status-offer-fg);
+  --badge-dot: var(--status-offer-solid);
+}
+
+.badge--status-rejected {
+  --badge-bg: var(--status-rejected-bg);
+  --badge-fg: var(--status-rejected-fg);
+  --badge-dot: var(--status-rejected-solid);
+}

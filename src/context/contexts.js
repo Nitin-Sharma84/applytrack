@@ -8,6 +8,9 @@ import { createContext } from 'react'
 export const ApplicationsContext = createContext(null)
 export const SettingsContext = createContext(null)
 
+// The value of ConfirmContext is the confirm() function itself.
+export const ConfirmContext = createContext(null)
+
 // Toasts use two contexts on purpose:
 // ToastContext (stable actions) never changes, so components that only SHOW
 // toasts do not re-render when a toast appears or disappears.

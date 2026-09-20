@@ -1,0 +1,27 @@
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text);
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: var(--weight-extrabold);
+  letter-spacing: -0.02em;
+}
+
+.logo__mark {
+  display: grid;
+  width: 32px;
+  height: 32px;
+  place-items: center;
+  border-radius: 10px;
+  background: var(--gradient-brand);
+  color: #ffffff;
+  box-shadow: var(--shadow-glow);
+}
+
+@media (max-width: 479px) {
+  .logo--collapsible .logo__text {
+    display: none;
+  }
+}
