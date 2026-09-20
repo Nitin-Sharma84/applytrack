@@ -1,0 +1,287 @@
+/* ==========================================================================
+   tokens.css
+   Design tokens (CSS variables). Components never hardcode colors, spacing,
+   radius or shadows. They only use these variables.
+
+   Breakpoints (CSS variables cannot be used inside @media, so they are
+   documented here): 480px, 768px, 1024px, 1280px.
+   ========================================================================== */
+
+/* ---------- 1. Tokens that are the same in both themes ---------- */
+:root {
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', 'Inter', system-ui, -apple-system,
+    'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto,
+    'Helvetica Neue', Arial, sans-serif;
+
+  --text-xs: 0.75rem;
+  --text-sm: 0.875rem;
+  --text-base: 1rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.25rem;
+  --text-2xl: 1.5rem;
+  --text-3xl: 1.875rem;
+  --text-4xl: 2.25rem;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+  --weight-extrabold: 800;
+
+  --leading-tight: 1.25;
+  --leading-normal: 1.5;
+  --leading-relaxed: 1.65;
+
+  /* Spacing scale (4px base) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.25rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-10: 2.5rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-xl: 20px;
+  --radius-full: 999px;
+
+  /* Layout */
+  --sidebar-width: 260px;
+  --topbar-height: 64px;
+  --mobile-nav-height: 64px;
+  --content-max-width: 1280px;
+
+  /* Motion */
+  --duration-fast: 120ms;
+  --duration-base: 200ms;
+  --duration-slow: 320ms;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+
+  /* Glassmorphism */
+  --blur-glass: 14px;
+
+  /* z-index scale */
+  --z-base: 1;
+  --z-sticky: 100;
+  --z-drawer: 300;
+  --z-modal: 400;
+  --z-toast: 500;
+  --z-tooltip: 600;
+
+  /* Brand gradients.
+     Buttons use the slightly darker pair so white text keeps AA contrast.
+     The lighter pair (#6366f1 to #8b5cf6) is for decorative use only
+     (logo, charts, rings). */
+  --gradient-primary: linear-gradient(135deg, #4f46e5 0%, #7c3aed 100%);
+  --gradient-primary-hover: linear-gradient(135deg, #4338ca 0%, #6d28d9 100%);
+  --gradient-brand: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+  --color-on-primary: #ffffff;
+
+  /* Solid danger (delete button). White text on it is above 4.5:1. */
+  --color-danger-solid: #dc2626;
+  --color-danger-solid-hover: #b91c1c;
+}
+
+/* ---------- 2. Light theme (default) ---------- */
+:root {
+  color-scheme: light;
+
+  /* Surfaces and text */
+  --color-bg: #f5f6ff;
+  --color-surface: rgb(255 255 255 / 0.72);
+  --color-surface-solid: #ffffff;
+  --color-surface-muted: #f1f3fb;
+  --color-surface-hover: rgb(99 102 241 / 0.07);
+  --color-border: rgb(15 23 42 / 0.1);
+  --color-border-strong: rgb(15 23 42 / 0.18);
+  --color-input-border: #7c8aa0;
+  --color-text: #0f172a;
+  --color-text-muted: #475569;
+  --color-text-subtle: #5b6b81;
+  --color-overlay: rgb(15 23 42 / 0.45);
+  --color-selection: rgb(99 102 241 / 0.25);
+
+  /* Brand */
+  --color-primary: #4f46e5;
+  --color-primary-soft: rgb(99 102 241 / 0.12);
+  --color-accent: #0f766e;
+  --color-accent-soft: rgb(20 184 166 / 0.14);
+  --color-focus-ring: #4f46e5;
+
+  /* Feedback */
+  --color-success-text: #166534;
+  --color-success-soft: rgb(34 197 94 / 0.14);
+  --color-warning-text: #92400e;
+  --color-warning-soft: rgb(245 158 11 / 0.16);
+  --color-danger-text: #b91c1c;
+  --color-danger-soft: rgb(239 68 68 / 0.12);
+
+  /* Status colors: bg (tint), fg (text), solid (dots, chart fills) */
+  --status-wishlist-bg: #e2e8f0;
+  --status-wishlist-fg: #334155;
+  --status-wishlist-solid: #64748b;
+  --status-applied-bg: #dbeafe;
+  --status-applied-fg: #1d4ed8;
+  --status-applied-solid: #3b82f6;
+  --status-online-test-bg: #fef3c7;
+  --status-online-test-fg: #92400e;
+  --status-online-test-solid: #f59e0b;
+  --status-interview-bg: #ede9fe;
+  --status-interview-fg: #5b21b6;
+  --status-interview-solid: #8b5cf6;
+  --status-offer-bg: #dcfce7;
+  --status-offer-fg: #166534;
+  --status-offer-solid: #22c55e;
+  --status-rejected-bg: #ffe4e6;
+  --status-rejected-fg: #9f1239;
+  --status-rejected-solid: #f43f5e;
+
+  /* Shadows (layered = one tight shadow + one soft, wide shadow) */
+  --shadow-xs: 0 1px 2px rgb(15 23 42 / 0.06);
+  --shadow-sm: 0 1px 2px rgb(15 23 42 / 0.06), 0 2px 6px rgb(15 23 42 / 0.05);
+  --shadow-md: 0 2px 4px rgb(15 23 42 / 0.05), 0 8px 20px rgb(15 23 42 / 0.08);
+  --shadow-lg: 0 4px 8px rgb(15 23 42 / 0.06), 0 16px 40px rgb(15 23 42 / 0.12);
+  --shadow-glow: 0 8px 24px rgb(99 102 241 / 0.35);
+
+  /* Page background (pure CSS, used by body::before in base.css) */
+  --bg-base: linear-gradient(160deg, #eef2ff 0%, #ffffff 65%);
+  --bg-blob-violet: rgb(139 92 246 / 0.28);
+  --bg-blob-teal: rgb(20 184 166 / 0.22);
+  --bg-dot: rgb(15 23 42 / 0.07);
+}
+
+/* ---------- 3. Dark theme ----------
+   Two selectors carry the SAME values. Keep both blocks in sync.
+   A) User has not chosen a theme: follow the OS setting.
+   B) User explicitly chose dark: [data-theme='dark'] on <html>. */
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    color-scheme: dark;
+
+    --color-bg: #0b1020;
+    --color-surface: rgb(20 26 50 / 0.68);
+    --color-surface-solid: #141a33;
+    --color-surface-muted: #1a2140;
+    --color-surface-hover: rgb(165 180 252 / 0.08);
+    --color-border: rgb(255 255 255 / 0.1);
+    --color-border-strong: rgb(255 255 255 / 0.2);
+    --color-input-border: #6b7896;
+    --color-text: #e8ecff;
+    --color-text-muted: #b4bdd9;
+    --color-text-subtle: #9aa5c4;
+    --color-overlay: rgb(2 6 23 / 0.65);
+    --color-selection: rgb(129 140 248 / 0.35);
+
+    --color-primary: #a5b4fc;
+    --color-primary-soft: rgb(129 140 248 / 0.16);
+    --color-accent: #5eead4;
+    --color-accent-soft: rgb(45 212 191 / 0.16);
+    --color-focus-ring: #a5b4fc;
+
+    --color-success-text: #86efac;
+    --color-success-soft: rgb(34 197 94 / 0.16);
+    --color-warning-text: #fcd34d;
+    --color-warning-soft: rgb(245 158 11 / 0.16);
+    --color-danger-text: #fca5a5;
+    --color-danger-soft: rgb(239 68 68 / 0.16);
+
+    --status-wishlist-bg: rgb(148 163 184 / 0.18);
+    --status-wishlist-fg: #cbd5e1;
+    --status-wishlist-solid: #94a3b8;
+    --status-applied-bg: rgb(59 130 246 / 0.2);
+    --status-applied-fg: #93c5fd;
+    --status-applied-solid: #60a5fa;
+    --status-online-test-bg: rgb(245 158 11 / 0.2);
+    --status-online-test-fg: #fcd34d;
+    --status-online-test-solid: #fbbf24;
+    --status-interview-bg: rgb(139 92 246 / 0.24);
+    --status-interview-fg: #c4b5fd;
+    --status-interview-solid: #a78bfa;
+    --status-offer-bg: rgb(34 197 94 / 0.2);
+    --status-offer-fg: #86efac;
+    --status-offer-solid: #4ade80;
+    --status-rejected-bg: rgb(244 63 94 / 0.2);
+    --status-rejected-fg: #fda4af;
+    --status-rejected-solid: #fb7185;
+
+    --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.35);
+    --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.3);
+    --shadow-md: 0 2px 4px rgb(0 0 0 / 0.3), 0 8px 20px rgb(0 0 0 / 0.4);
+    --shadow-lg: 0 4px 8px rgb(0 0 0 / 0.35), 0 16px 40px rgb(0 0 0 / 0.5);
+    --shadow-glow: 0 8px 24px rgb(99 102 241 / 0.4);
+
+    --bg-base: linear-gradient(160deg, #0b1020 0%, #0d1330 100%);
+    --bg-blob-violet: rgb(139 92 246 / 0.3);
+    --bg-blob-teal: rgb(20 184 166 / 0.2);
+    --bg-dot: rgb(255 255 255 / 0.05);
+  }
+}
+
+:root[data-theme='dark'] {
+  color-scheme: dark;
+
+  --color-bg: #0b1020;
+  --color-surface: rgb(20 26 50 / 0.68);
+  --color-surface-solid: #141a33;
+  --color-surface-muted: #1a2140;
+  --color-surface-hover: rgb(165 180 252 / 0.08);
+  --color-border: rgb(255 255 255 / 0.1);
+  --color-border-strong: rgb(255 255 255 / 0.2);
+  --color-input-border: #6b7896;
+  --color-text: #e8ecff;
+  --color-text-muted: #b4bdd9;
+  --color-text-subtle: #9aa5c4;
+  --color-overlay: rgb(2 6 23 / 0.65);
+  --color-selection: rgb(129 140 248 / 0.35);
+
+  --color-primary: #a5b4fc;
+  --color-primary-soft: rgb(129 140 248 / 0.16);
+  --color-accent: #5eead4;
+  --color-accent-soft: rgb(45 212 191 / 0.16);
+  --color-focus-ring: #a5b4fc;
+
+  --color-success-text: #86efac;
+  --color-success-soft: rgb(34 197 94 / 0.16);
+  --color-warning-text: #fcd34d;
+  --color-warning-soft: rgb(245 158 11 / 0.16);
+  --color-danger-text: #fca5a5;
+  --color-danger-soft: rgb(239 68 68 / 0.16);
+
+  --status-wishlist-bg: rgb(148 163 184 / 0.18);
+  --status-wishlist-fg: #cbd5e1;
+  --status-wishlist-solid: #94a3b8;
+  --status-applied-bg: rgb(59 130 246 / 0.2);
+  --status-applied-fg: #93c5fd;
+  --status-applied-solid: #60a5fa;
+  --status-online-test-bg: rgb(245 158 11 / 0.2);
+  --status-online-test-fg: #fcd34d;
+  --status-online-test-solid: #fbbf24;
+  --status-interview-bg: rgb(139 92 246 / 0.24);
+  --status-interview-fg: #c4b5fd;
+  --status-interview-solid: #a78bfa;
+  --status-offer-bg: rgb(34 197 94 / 0.2);
+  --status-offer-fg: #86efac;
+  --status-offer-solid: #4ade80;
+  --status-rejected-bg: rgb(244 63 94 / 0.2);
+  --status-rejected-fg: #fda4af;
+  --status-rejected-solid: #fb7185;
+
+  --shadow-xs: 0 1px 2px rgb(0 0 0 / 0.35);
+  --shadow-sm: 0 1px 2px rgb(0 0 0 / 0.35), 0 2px 6px rgb(0 0 0 / 0.3);
+  --shadow-md: 0 2px 4px rgb(0 0 0 / 0.3), 0 8px 20px rgb(0 0 0 / 0.4);
+  --shadow-lg: 0 4px 8px rgb(0 0 0 / 0.35), 0 16px 40px rgb(0 0 0 / 0.5);
+  --shadow-glow: 0 8px 24px rgb(99 102 241 / 0.4);
+
+  --bg-base: linear-gradient(160deg, #0b1020 0%, #0d1330 100%);
+  --bg-blob-violet: rgb(139 92 246 / 0.3);
+  --bg-blob-teal: rgb(20 184 166 / 0.2);
+  --bg-dot: rgb(255 255 255 / 0.05);
+}

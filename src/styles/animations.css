@@ -1,0 +1,82 @@
+/* ==========================================================================
+   animations.css
+   Shared keyframes and helper classes. Prefixed with "at-" to avoid name
+   clashes. Reduced-motion users get (almost) no animation, globally.
+   ========================================================================== */
+
+@keyframes at-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes at-slide-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes at-scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes at-slide-in-right {
+  from {
+    transform: translateX(100%);
+  }
+  to {
+    transform: translateX(0);
+  }
+}
+
+@keyframes at-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.anim-fade-in {
+  animation: at-fade-in var(--duration-slow) var(--ease-out) both;
+}
+
+.anim-slide-up {
+  animation: at-slide-up var(--duration-slow) var(--ease-out) both;
+}
+
+.anim-scale-in {
+  animation: at-scale-in var(--duration-base) var(--ease-out) both;
+}
+
+.anim-slide-in-right {
+  animation: at-slide-in-right var(--duration-slow) var(--ease-out) both;
+}
+
+/* Respect the OS "reduce motion" setting for every animation and transition. */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
