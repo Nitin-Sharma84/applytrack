@@ -1,0 +1,57 @@
+.stat-card {
+  --stat-accent: var(--color-primary);
+
+  display: grid;
+  gap: var(--space-1);
+  padding: var(--space-4);
+  border: 1px solid var(--color-border);
+  border-top: 3px solid var(--stat-accent);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-sm);
+}
+
+.stat-card__label,
+.stat-card__value,
+.stat-card__hint {
+  margin: 0;
+}
+
+.stat-card__label {
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+}
+
+.stat-card__value {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-extrabold);
+  font-variant-numeric: tabular-nums;
+  line-height: var(--leading-tight);
+}
+
+.stat-card__hint {
+  color: var(--color-text-subtle);
+  font-size: var(--text-xs);
+}
+
+.stat-card--applied {
+  --stat-accent: var(--status-applied-solid);
+}
+
+.stat-card--interview {
+  --stat-accent: var(--status-interview-solid);
+}
+
+.stat-card--offer {
+  --stat-accent: var(--status-offer-solid);
+}
+
+.stat-card--rejected {
+  --stat-accent: var(--status-rejected-solid);
+}
+
+.stat-card--neutral {
+  --stat-accent: var(--color-accent);
+}

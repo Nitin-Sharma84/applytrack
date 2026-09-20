@@ -1,0 +1,136 @@
+.filter-bar {
+  display: grid;
+  gap: var(--space-3);
+}
+
+/* Phones: tabs scroll sideways instead of wrapping into many rows. */
+.filter-bar__tabs {
+  display: flex;
+  gap: var(--space-2);
+  padding-bottom: var(--space-1);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-bar__tabs::-webkit-scrollbar {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .filter-bar__tabs {
+    flex-wrap: wrap;
+    overflow: visible;
+  }
+}
+
+.filter-bar__tab {
+  --tab-bg: var(--color-surface-muted);
+  --tab-fg: var(--color-text-muted);
+  --tab-solid: var(--color-border-strong);
+
+  display: inline-flex;
+  flex-shrink: 0;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 6px var(--space-3);
+  border: 1px solid transparent;
+  border-radius: var(--radius-full);
+  background: var(--tab-bg);
+  color: var(--tab-fg);
+  font-size: var(--text-sm);
+  font-weight: var(--weight-medium);
+  transition: border-color var(--duration-fast) var(--ease-out);
+}
+
+.filter-bar__tab:hover {
+  border-color: var(--tab-solid);
+}
+
+/* Selected tab: border ring + bold, so it is not shown by color alone. */
+.filter-bar__tab[aria-pressed='true'] {
+  border-color: var(--tab-solid);
+  box-shadow: inset 0 0 0 1px var(--tab-solid);
+  font-weight: var(--weight-semibold);
+}
+
+.filter-bar__count {
+  min-width: 1ch;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.85;
+}
+
+.filter-bar__tab--all {
+  --tab-bg: var(--color-primary-soft);
+  --tab-fg: var(--color-primary);
+  --tab-solid: var(--color-primary);
+}
+
+.filter-bar__tab--wishlist {
+  --tab-bg: var(--status-wishlist-bg);
+  --tab-fg: var(--status-wishlist-fg);
+  --tab-solid: var(--status-wishlist-solid);
+}
+
+.filter-bar__tab--applied {
+  --tab-bg: var(--status-applied-bg);
+  --tab-fg: var(--status-applied-fg);
+  --tab-solid: var(--status-applied-solid);
+}
+
+.filter-bar__tab--online-test {
+  --tab-bg: var(--status-online-test-bg);
+  --tab-fg: var(--status-online-test-fg);
+  --tab-solid: var(--status-online-test-solid);
+}
+
+.filter-bar__tab--interview {
+  --tab-bg: var(--status-interview-bg);
+  --tab-fg: var(--status-interview-fg);
+  --tab-solid: var(--status-interview-solid);
+}
+
+.filter-bar__tab--offer {
+  --tab-bg: var(--status-offer-bg);
+  --tab-fg: var(--status-offer-fg);
+  --tab-solid: var(--status-offer-solid);
+}
+
+.filter-bar__tab--rejected {
+  --tab-bg: var(--status-rejected-bg);
+  --tab-fg: var(--status-rejected-fg);
+  --tab-solid: var(--status-rejected-solid);
+}
+
+.filter-bar__controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  gap: var(--space-3);
+}
+
+.filter-bar__controls .field {
+  flex: 1 1 200px;
+  max-width: 260px;
+}
+
+.filter-bar__chevron {
+  transition: transform var(--duration-base) var(--ease-out);
+}
+
+.filter-bar__chevron--open {
+  transform: rotate(180deg);
+}
+
+.filter-bar__result {
+  align-self: center;
+  margin-left: auto;
+  color: var(--color-text-muted);
+  font-size: var(--text-sm);
+}
+
+.filter-bar__more {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(200px, 100%), 1fr));
+  gap: var(--space-3);
+  animation: at-slide-up var(--duration-base) var(--ease-out) both;
+}

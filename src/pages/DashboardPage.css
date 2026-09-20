@@ -1,0 +1,66 @@
+.dashboard {
+  display: grid;
+  gap: var(--space-6);
+}
+
+.dashboard__title {
+  font-size: var(--text-3xl);
+  font-weight: var(--weight-extrabold);
+}
+
+.dashboard__stats,
+.dashboard__rates {
+  display: grid;
+  gap: var(--space-3);
+  margin: 0;
+}
+
+/* Phones: 2 columns, and a lonely last card stretches across the row. */
+.dashboard__stats {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.dashboard__stats .stat-card:last-child:nth-child(odd) {
+  grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+  .dashboard__stats {
+    grid-template-columns: repeat(5, 1fr);
+  }
+
+  .dashboard__stats .stat-card:last-child:nth-child(odd) {
+    grid-column: auto;
+  }
+}
+
+.dashboard__rates {
+  grid-template-columns: repeat(auto-fit, minmax(min(240px, 100%), 1fr));
+}
+
+.dashboard__columns {
+  display: grid;
+  gap: var(--space-6);
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .dashboard__columns {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+.dashboard__data {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+  color: var(--color-text-subtle);
+  font-size: var(--text-sm);
+}
+
+.dashboard__panel {
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-md);
+}
